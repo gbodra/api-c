@@ -9,7 +9,7 @@
 #include <string.h>
 #include <ulfius.h>
 
-#include <hiredis/hiredis.h>
+//#include <hiredis/hiredis.h>
 
 #define PORT 8080
 #define CHUNK (10 * 1024 * 1024)
@@ -78,34 +78,34 @@ int callback_read_file (const struct _u_request * request, struct _u_response * 
 /**
  * Callback function for the web application on /redis url call
  */
-int callback_redis (const struct _u_request * request, struct _u_response * response, void * user_data) {
-    redisContext *c;
-    redisReply *reply;
-    const char *hostname = "127.0.0.1";
-    int port = 6379;
+// int callback_redis (const struct _u_request * request, struct _u_response * response, void * user_data) {
+//     redisContext *c;
+//     redisReply *reply;
+//     const char *hostname = "127.0.0.1";
+//     int port = 6379;
 
-    struct timeval timeout = { 1, 500000 }; // 1.5 seconds
-    c = redisConnectWithTimeout(hostname, port, timeout);
-    if (c == NULL || c->err) {
-        if (c) {
-            printf("Connection error: %s\n", c->errstr);
-            redisFree(c);
-        } else {
-            printf("Connection error: can't allocate redis context\n");
-        }
-        exit(1);
-    }
+//     struct timeval timeout = { 1, 500000 }; // 1.5 seconds
+//     c = redisConnectWithTimeout(hostname, port, timeout);
+//     if (c == NULL || c->err) {
+//         if (c) {
+//             printf("Connection error: %s\n", c->errstr);
+//             redisFree(c);
+//         } else {
+//             printf("Connection error: can't allocate redis context\n");
+//         }
+//         exit(1);
+//     }
 
-    /* Set a key */
-    reply = redisCommand(c,"SET %s %s", "foo", "hello world");
-    printf("SET: %s\n", reply->str);
+//     /* Set a key */
+//     reply = redisCommand(c,"SET %s %s", "foo", "hello world");
+//     printf("SET: %s\n", reply->str);
     
-    freeReplyObject(reply);
-    redisFree(c);
+//     freeReplyObject(reply);
+//     redisFree(c);
   
-    ulfius_set_string_body_response(response, 200, "Redis!");
-    return U_CALLBACK_CONTINUE;
-}
+//     ulfius_set_string_body_response(response, 200, "Redis!");
+//     return U_CALLBACK_CONTINUE;
+// }
 
 /**
  * Callback function for the web application on /storefile url call
@@ -158,7 +158,7 @@ int main(void) {
   // Endpoint list declaration
   ulfius_add_endpoint_by_val(&instance, "GET", "/helloworld", NULL, 0, &callback_hello_world, NULL);
   ulfius_add_endpoint_by_val(&instance, "GET", "/readfile", NULL, 0, &callback_read_file, NULL);
-  ulfius_add_endpoint_by_val(&instance, "GET", "/redis", NULL, 0, &callback_redis, NULL);
+  // ulfius_add_endpoint_by_val(&instance, "GET", "/redis", NULL, 0, &callback_redis, NULL);
   ulfius_add_endpoint_by_val(&instance, "GET", "/storefile", NULL, 0, &callback_storefile, NULL);
   ulfius_add_endpoint_by_val(&instance, "GET", "/fibonacci", NULL, 0, &callback_fibonacci, NULL);
 
