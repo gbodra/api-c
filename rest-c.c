@@ -159,7 +159,7 @@ int main(void) {
   ulfius_add_endpoint_by_val(&instance, "GET", "/helloworld", NULL, 0, &callback_hello_world, NULL);
   ulfius_add_endpoint_by_val(&instance, "GET", "/readfile", NULL, 0, &callback_read_file, NULL);
   // ulfius_add_endpoint_by_val(&instance, "GET", "/redis", NULL, 0, &callback_redis, NULL);
-  ulfius_add_endpoint_by_val(&instance, "GET", "/storefile", NULL, 0, &callback_storefile, NULL);
+  // ulfius_add_endpoint_by_val(&instance, "GET", "/storefile", NULL, 0, &callback_storefile, NULL);
   ulfius_add_endpoint_by_val(&instance, "GET", "/fibonacci", NULL, 0, &callback_fibonacci, NULL);
 
   // Start the framework
