@@ -110,38 +110,38 @@ int callback_read_file (const struct _u_request * request, struct _u_response * 
 /**
  * Callback function for the web application on /storefile url call
  */
-int callback_storefile (const struct _u_request * request, struct _u_response * response, void * user_data) {
-    redisContext *c;
-    redisReply *reply;
-    const char *hostname = "127.0.0.1";
-    int port = 6379;
+// int callback_storefile (const struct _u_request * request, struct _u_response * response, void * user_data) {
+//     redisContext *c;
+//     redisReply *reply;
+//     const char *hostname = "127.0.0.1";
+//     int port = 6379;
 
-    struct timeval timeout = { 1, 500000 }; // 1.5 seconds
-    c = redisConnectWithTimeout(hostname, port, timeout);
-    if (c == NULL || c->err) {
-        if (c) {
-            printf("Connection error: %s\n", c->errstr);
-            redisFree(c);
-        } else {
-            printf("Connection error: can't allocate redis context\n");
-        }
-        exit(1);
-    }
+//     struct timeval timeout = { 1, 500000 }; // 1.5 seconds
+//     c = redisConnectWithTimeout(hostname, port, timeout);
+//     if (c == NULL || c->err) {
+//         if (c) {
+//             printf("Connection error: %s\n", c->errstr);
+//             redisFree(c);
+//         } else {
+//             printf("Connection error: can't allocate redis context\n");
+//         }
+//         exit(1);
+//     }
 
-    char *buffer;
-    buffer = readFile();
+//     char *buffer;
+//     buffer = readFile();
 
-    /* Set a key */
-    reply = redisCommand(c,"SET %s %s", "file", buffer);
-    printf("SET: %s\n", reply->str);
+//     /* Set a key */
+//     reply = redisCommand(c,"SET %s %s", "file", buffer);
+//     printf("SET: %s\n", reply->str);
     
-    freeReplyObject(reply);
-    redisFree(c);
-    free (buffer);
+//     freeReplyObject(reply);
+//     redisFree(c);
+//     free (buffer);
   
-    ulfius_set_string_body_response(response, 200, "File stored in Redis!");
-    return U_CALLBACK_CONTINUE;
-}
+//     ulfius_set_string_body_response(response, 200, "File stored in Redis!");
+//     return U_CALLBACK_CONTINUE;
+// }
 
 /**
  * main function
